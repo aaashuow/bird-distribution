@@ -1,0 +1,86 @@
+.name-group{
+   margin: 0 auto;
+    max-width: 65%;
+    padding-bottom: 10px;
+    border-bottom: 1px gray;
+}
+.btn{
+     display: inline-block;
+    font-weight: 400;
+    line-height: 1;
+    text-align: center;
+    white-space: nowrap;
+    vertical-align: middle;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+    border: 1px solid transparent;
+    padding: .5rem .5rem;
+    font-size: .9rem;
+    border-radius: .5rem;
+    -webkit-transition: all .2s ease-in-out;
+    -o-transition: all .2s ease-in-out;
+    transition: all .2s ease-in-out;
+    width: 150px;
+}
+
+.btn-primary:hover {
+    color: #fff;
+    background-color: #004442;
+    border-color: #004442;
+}
+.btn-primary {
+    color: #fff;
+    background-color: #008080;
+    border-color: #008080;
+}
+
+.btn-primary.active, .btn-primary:active, .show > .btn-primary.dropdown-toggle {
+    color: #fff;
+    background-color: #004442;
+    border-color: #004442;
+}
+table {
+    border-collapse: collapse;
+    border-spacing: 0;
+}
+.hotcitynum{
+    background:url("http://www.birder.cn/Themes/CBIRD/img/hotBac03.png") no-repeat;
+    color: #fff;
+    border-radius: 3px;
+    font-size: 12px;
+    /*font-family: arial;*/
+    width: 25px;
+    height: 31px;
+    line-height: 25px;
+    text-align: center;
+    display: block;
+    float: left;
+    margin-right: 10px;
+}
+
+.list-tab{
+    /* height: 160px; */
+    max-height: 180px;
+    display: grid;
+    /* grid-template-columns: repeat(2,1fr); */
+    /* overflow-wrap: inherit; */
+}
+.citylist{
+    border-right-style: solid;
+    margin-left: 288px;
+    margin-right: 44px;
+    display: inline-block;
+    width: 409px;
+    height: 352px;
+}
+
+.birdimg{
+    margin: 10px auto;
+    border-radius: 50%;
+    overflow: hidden;
+    height: 80px;
+    width: 80px;
+    border: 1px solid;
+}

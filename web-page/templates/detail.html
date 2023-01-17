@@ -1,0 +1,318 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <title>{{ intro['中文名'] }}详情</title>
+
+    <meta name="description" content="Source code generated using layoutit.com">
+    <meta name="author" content="LayoutIt!">
+
+      <link rel="stylesheet" href="{{ url_for('static',filename='css/detail_css/bootstrap.min.css') }}">
+      <link rel="stylesheet" href="{{ url_for('static',filename='css/detail_css/style.css') }}">
+
+  </head>
+  <body>
+
+      <div class="container-fluid">
+      		<div class="col-md-12">
+			<!-- 标题 -->
+			<h3 class="text-center text-info" style="color: #008080!important;text-align: left!important;">
+				MyBirder
+			</h3>
+            <header style=" display:block;
+                background: teal;
+                height: 30px;
+                margin-bottom: 3px;
+                 margin-top: 3px;
+                color: white;
+                text-align: center;">
+
+                <!-- 返回前一页按钮 -->
+                  <form method="post">
+                      <button type="submit" class="btn btn-success btn-block btn-sm" style="background: #008080!important;
+                      border-color:#008080!important;
+                      width: 100px;height: 60%;
+                      color:#fff!important;padding-bottom: 2px;padding-top: 2px;padding-top: 2px;">
+                            返回
+                      </button>
+                  </form>
+
+            </header>
+		    </div>
+
+
+              <!-- 鸟的名称（中文、拉丁） -->
+              <div style="margiin:0 auto;">
+                  <h3 class="text-center text-info">
+                        {{ intro['中文名'] }}{{ intro['拉丁名'] }}
+                  </h3>
+              </div>
+
+          <div class="row">
+              <!-- 轮播图 -->
+              <div class="col-md-12">
+                  <div class="carousel slide" id="carousel-74134" style="position: relative;
+                                                                            width: 700px;
+                                                                            height: 600px;
+                                                                            margin:0 auto;background: center;" >
+                      <ol class="carousel-indicators">
+
+                          {% for img in piclis %}
+                          <li data-slide-to="{{ loop.index - 1 }}" data-target="#carousel-74134" {% if loop.index==1 %}class="active"{% endif %}>
+                          </li>
+                            {% endfor %}
+                      </ol>
+
+                      <div class="carousel-inner">
+                           {% for img in piclis %}
+                              <div  {% if loop.index == 1 %} class="carousel-item active" {% else %}class="carousel-item"{% endif %}>
+                                  <img class="d-block w-100" alt="Carousel Bootstrap" src="{{ img }}"style="width: 1000px;
+                                                                                                            height: 614px;
+                                                                                                                    background: center;">
+                              </div>
+                            {% endfor %}
+
+                      </div>
+                      <a class="carousel-control-prev" href="#carousel-74134" data-slide="prev">
+                          <span class="carousel-control-prev-icon"></span>
+                          <span class="sr-only">Previous</span>
+                      </a>
+                      <a class="carousel-control-next" href="#carousel-74134" data-slide="next">
+                          <span class="carousel-control-next-icon"></span>
+                          <span class="sr-only">Next</span>
+                      </a>
+                  </div>
+              </div>
+          </div>
+          <div class="blank_space"></div>
+          <div class="row">
+              <div class="col-md-4"style="   max-width: 10%;
+                                        margin-left: 300px;">
+                  <img alt="Bootstrap Image Preview" src="{{ piclis[0] }}" class="rounded-circle" style="
+                                                                        border-radius: 50%;
+                                                                        overflow: hidden;
+                                                                        height: 140px;
+                                                                        width: 140px;
+                                                                        border: 1px solid;">
+              </div>
+              <div class="col-md-8">
+                    {% for k,v in intro.items() %}
+                        {% if loop.index!=4 %}
+                            <p><b>{{ k }}</b>：{{ v }}</p>
+                        {% endif %}
+                  {% endfor %}
+              </div>
+          </div>
+
+      <h2 style="    justify-content: center;
+    text-align: center;
+    background: wheat;
+    margin: auto 300px;">分布热力图</h2>
+
+
+{#          <div class="row">#}
+{#              <div class="col-md-12">#}
+{#              </div>#}
+{#          </div>#}
+          <div id="my_map" class="chart"></div>
+
+          <div class="blank_space"></div>
+
+          <div class="row">
+              <div class="col-md-12">
+                  <div class="tabbable" id="tabs-415945">
+                      <ul class="nav nav-tabs">
+                          <li class="nav-item">
+                              <a class="nav-link active show" href="#tab1" data-toggle="tab">音频</a>
+                          </li>
+
+                      </ul>
+                      <div class="tab-content">
+                          <div class="tab-pane active" id="panel-763530">
+                              <p>
+                                  音频信息
+                              </p>
+                          </div>
+
+                      </div>
+                  </div>
+              </div>
+          </div>
+      </div>
+
+    <script src="{{ url_for('static',filename='js/detail_js/jquery.min.js') }}"></script>
+  <script src="{{ url_for('static',filename='js/detail_js/bootstrap.min.js') }}"></script>
+  <script src="{{ url_for('static',filename='js/detail_js/scripts.js') }}"></script>
+  <script src="{{ url_for('static',filename='js/detail_js/echarts.min.js') }}"></script>
+{#  	<!-- 先引入jquery -->#}
+{#  	<!-- 必须先引入china.js 这个文件 因为中国地图需要 -->#}
+  <script src="{{ url_for('static',filename='js/detail_js/china.js') }}"></script>
+{#  <script src="{{ url_for('static',filename='js/detail_js/index.js') }}"></script>#}
+  <script type="text/javascript">
+
+        (function () {
+            var myChart = echarts.init(document.querySelector(".chart"));
+            var geoCoordMap = {
+                "浙江省": [120.152791, 30.267446],
+                "江苏省": [118.763232, 32.061707],
+                "江西省": [115.909228, 28.675696],
+                "上海市": [121.473701, 31.230416],
+                "福建省": [119.295144, 26.100779],
+                "安徽省": [117.284922, 31.861184],
+                "山东省": [117.020359, 36.66853],
+                "宁夏回族自治区": [106.258754, 38.471317],
+                "内蒙古自治区": [111.765617, 40.817498],
+                "青海省": [101.780199, 36.620901],
+                "甘肃省": [103.826308, 36.059421],
+                "北京市": [116.407526, 39.90403],
+                "广东省": [113.26653, 23.132191],
+                "四川省": [104.075931, 30.651651],
+                "广西壮族自治区": [108.327546, 22.815478],
+                "云南省": [102.710002, 25.045806],
+                "陕西省": [108.954239, 34.265472],
+                "贵州省": [106.70741, 26.598194],
+                "河南省": [113.753602, 34.765515],
+                "河北省": [114.468664, 38.037057],
+                "湖北省": [114.341861, 30.546498],
+                "吉林省": [125.32599, 43.896536],
+                "新疆维吾尔自治区": [87.627704, 43.793026],
+                "重庆市": [106.551556, 29.563009],
+                "湖南省": [112.98381, 28.112444],
+                "海南省": [110.349228, 20.017377],
+                "西藏自治区": [91.117212, 29.646922],
+                "辽宁省": [123.42944, 41.835441],
+                "山西省": [112.562398, 37.873531],
+                "天津市": [117.200983, 39.084158],
+                "黑龙江省": [126.661669, 45.742347],
+                "澳门特别行政区": [113.543028, 22.186835]
+            };
+
+
+
+            {#var Data = [#}
+            {#    [{ name: "麻雀" }, { name: "拉萨", value: 500 }],#}
+            {#    [{ name: "麻雀" }, { name: "上海", value: 100 }],#}
+            {#    [{ name: "麻雀" }, { name: "广州", value: 100 }],#}
+            {#    [{ name: "麻雀" }, { name: "西宁", value: 100 }],#}
+            {#    [{ name: "麻雀" }, { name: "银川", value: 100 }]#}
+            {#];#}
+
+            var Data = eval('{{ posts|safe }}')
+
+            var convertData = function (data) {
+                var res = [];
+                for (var i = 0; i < data.length; i++) {
+                    var dataItem = data[i];
+
+                    var fromCoord = geoCoordMap[dataItem[0].name];
+                    var toCoord = geoCoordMap[dataItem[1].name];
+                    if (fromCoord && toCoord) {
+                        res.push({
+                            fromName: dataItem[0].name,
+                            toName: dataItem[1].name,
+                            coords: [fromCoord, toCoord],
+                            value: dataItem[1].value
+                        });
+                    }
+                }
+                return res;
+            };
+
+            var color = ["#a6c84c", "#ffa022", "#46bee9"]; //航线的颜色
+            var series = [];
+            [
+                ["麻雀", Data],
+            ].forEach(function (item, i) {
+                series.push(
+                    {
+                        name: item[0],
+                        type: "effectScatter",
+                        coordinateSystem: "geo",
+                        zlevel: 0,
+                        rippleEffect: {
+                            brushType: "stroke"
+                        },
+                        label: {
+                            normal: {
+                                show: true,
+                                position: "right",
+                                formatter: "{b}"
+                            }
+                        },
+                        symbolSize: function (val) {
+                            return val[2]/10;
+                        },
+                        itemStyle: {
+                            normal: {
+                                color: color[i]
+                            },
+                            emphasis: {
+                                areaColor: "#2B91B7"
+                            }
+                        },
+                        data: item[1].map(function (dataItem) {
+                            return {
+                                name: dataItem[1].name,
+                                value: geoCoordMap[dataItem[1].name].concat([dataItem[1].value])
+                            };
+                        })
+                    }
+                );
+            });
+            var option = {
+                tooltip: {
+                    trigger: "item",
+                    formatter: function (params) {
+                        if (params.seriesType == "effectScatter") {
+                            return params.data.name + "" + params.data.value[2];
+                        } else if (params.seriesType == "lines") {
+                            return (
+                                params.data.fromName +
+                                ">" +
+                                params.data.toName +
+                                "<br />" +
+                                params.data.value
+                            );
+                        } else {
+                            return params.name;
+                        }
+                    }
+                },
+
+                geo: {
+                    map: "china",
+                    label: {
+                        emphasis: {
+                            show: true,
+                            color: "#fff"
+                        }
+                    },
+                    // 把中国地图放大了1.2倍
+                    zoom: 1.2,
+                    roam: true,
+                    itemStyle: {
+                        normal: {
+                            // 地图省份的背景颜色
+                            areaColor: "rgba(20, 41, 87,0.6)",
+                            borderColor: "#195BB9",
+                            borderWidth: 1
+                        },
+                        emphasis: {
+                            areaColor: "#2B91B7"
+                        }
+                    }
+                },
+                series: series
+            };
+            myChart.setOption(option);
+
+        })();
+
+  </script>
+
+
+  </body>
+</html>
